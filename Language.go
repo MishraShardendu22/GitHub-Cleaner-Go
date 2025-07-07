@@ -16,7 +16,7 @@ func Lang() {
 	}
 
 	fmt.Println("Fetching repositories...")
-	repos := getRepos(githubUser, token)
+	repos := getRepos1(githubUser, token)
 	fmt.Printf("Found %d non-fork repositories\n", len(repos))
 
 	langTotals := make(map[string]float64)
@@ -38,7 +38,7 @@ func Lang() {
 	}
 }
 
-func getRepos(user, token string) []string {
+func getRepos1(user, token string) []string {
 	url := fmt.Sprintf("https://api.github.com/users/%s/repos?per_page=100&type=owner", user)
 	fmt.Println("GET", url)
 	out := githubAPIRequest(url, token)
