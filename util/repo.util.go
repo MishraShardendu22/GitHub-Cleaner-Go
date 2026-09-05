@@ -42,7 +42,7 @@ func GetAllRepos(baseURL string) []string {
 		var repos []model.Repo
 		err = json.NewDecoder(resp.Body).Decode(&repos)
 		resp.Body.Close()
-		
+
 		if err != nil {
 			log.Fatal(err)
 		}

@@ -22,7 +22,6 @@ var totalRepos int
 var wg sync.WaitGroup
 var logger *slog.Logger
 
-
 func main() {
 	timeNow := time.Now()
 	logger = util.NewLogger()
@@ -77,7 +76,7 @@ func main() {
 		slog.Int("total_repos", totalRepos),
 		slog.String("total_duration", totalDur.String()),
 	)
-	
+
 	logger.Info("All repos processed. Keeping metrics server alive. Press Ctrl+C to exit.")
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
@@ -158,7 +157,7 @@ func Cleaner(staringRepo string, repo string, repoStart time.Time) {
 
 // DFS call to clean the directory recursively
 func DeepSearchAndClean(currFolder string, repo string, repoStart time.Time) {
-	// note all the files and folders basically 
+	// note all the files and folders basically
 	dirs := util.Segregator(currFolder, true)
 	files := util.Segregator(currFolder, false)
 
@@ -209,7 +208,7 @@ func CleanThis(filesAndFolder string, repo string, repoStart time.Time) {
 		if err != nil {
 			return nil
 		}
-		
+
 		// mark all the used components as true
 		for _, m := range regexp.MustCompile(`[./@"]components/ui/([A-Za-z0-9_-]+)`).FindAllStringSubmatch(string(data), -1) {
 			used[strings.ToLower(m[1])] = true
@@ -218,7 +217,6 @@ func CleanThis(filesAndFolder string, repo string, repoStart time.Time) {
 		return nil
 	})
 
-	
 	entries, err := os.ReadDir(uiDir)
 	if err != nil {
 		logger.Error("failed_read_ui_dir",
